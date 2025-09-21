@@ -163,9 +163,5 @@ mod tests {
             assert_eq!(new_lexer.next_token(), tok);
         }
     }
+
 }
-
-
-
-
-
