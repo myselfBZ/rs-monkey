@@ -1,5 +1,22 @@
-Anyone welcome to finish this project up!
+myselfBZ/rs-monkey contribution guidlines.
 
-with clean NAMING CONVENTIONNSSS!
+# First of all, thank you a lot for contributing to the project. 
 
-Kindly adhere to strict naming conventions. Avoid ambiguous or non-descriptive identifiers for functions, variables, and all associated codebase entities to ensure maximum maintainability.
+## Second of all, please follow the rules mentioned below.
+
+Before writing any code open an issue or take a look at the existing issues, and see if the author approves your proposal of change to the codebase.
+After the approval you can fork and create your own branch.
+
+## During development please strictly adhere to the following rules. 
+Follow consice and descriptive naming, code structure, and consistent code patterns.
+Do not perform unnecessary convertions or operations to increase the overhead.
+Keep your code professional, comment if needed. Unnecessary, or unprofessional comments are not welcome.
+Stick with the language's conventions.
+
+## After development
+You can create a descriptive PR about what changes you have made.
+Your changes will be reviewed by the author and merged after the approval.
+
+Once again, thank you for your contribution
+
+
