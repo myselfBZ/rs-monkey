@@ -44,10 +44,8 @@ impl Evaluator {
 
     fn eval_minus(&self, s: objects::Object) -> objects::Object {
         match s {
-            objects::Object::Int(v) => { 
-                return objects::Object::Int(-v)
-            },
-            _ => objects::Object::Null
+            objects::Object::Int(v) => return objects::Object::Int(-v),
+            _ => objects::Object::Null,
         }
     }
 
@@ -59,13 +57,13 @@ impl Evaluator {
                 self.eval_infix(*left, *right, oprt)
             }
             ast::Expression::PrefixExprsn { token, exprsn } => match token {
-                crate::token::Token::Bang => { 
+                crate::token::Token::Bang => {
                     let obj = self.eval_exprs(*exprsn);
-                    return self.eval_bang(obj)
-                },
+                    return self.eval_bang(obj);
+                }
                 crate::token::Token::Minus => {
                     let obj = self.eval_exprs(*exprsn);
-                    return self.eval_minus(obj)
+                    return self.eval_minus(obj);
                 }
                 _ => objects::Object::Err(String::from("invalid prefix operator: {token}")),
             },
@@ -94,6 +92,10 @@ impl Evaluator {
                 "-" => objects::Object::Int(a - b),
                 "*" => objects::Object::Int(a * b),
                 "/" => objects::Object::Int(a / b),
+                ">" => objects::Object::Bool(b > a),
+                "<" => objects::Object::Bool(b < a),
+                "==" => objects::Object::Bool(a == b),
+                "!=" => objects::Object::Bool(a != b),
                 _ => objects::Object::Null,
             },
             (objects::Object::Err(_), _) => right,

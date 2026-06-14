@@ -78,7 +78,9 @@ impl Lexer {
                 token::Token::Lt
             }
             b'=' => {
-                if self.peek == b'='.into(){
+                // 22 -> '='
+                if self.peek == 22{
+                    self.read_char();
                     token::Token::Eq
                 } else{
                     token::Token::Assing
@@ -88,7 +90,9 @@ impl Lexer {
                 token::Token::Comma
             },
             b'!' =>{
-                if self.peek == b'='.into(){
+                // 22 -> '='
+                if self.peek == 22 {
+                    self.read_char();
                     token::Token::NotEq
                 } else{
                     token::Token::Bang
