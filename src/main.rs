@@ -9,6 +9,8 @@ mod parser;
 fn main() {
     let src = String::from("
         let x = 12;
+        1 + x;
+        let x = x + 1;
         ");
     let lexer = lexer::Lexer::new(src);
     let mut parser = parser::Parser::new(Box::new(lexer));

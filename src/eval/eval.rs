@@ -1,5 +1,5 @@
 use crate::ast::ast::{self, Expression};
-use crate::objects::objects;
+use crate::objects::objects::{self};
 
 
 pub struct Evaluator {
@@ -37,6 +37,13 @@ impl Evaluator {
             ast::Expression::Int(s) => objects::Object::Int(s),
             ast::Expression::Boolean{token: _, value} => objects::Object::Bool(value),
             ast::Expression::InfixExprsn { left, right, oprt } => self.eval_infix(*left, *right, oprt),
+            ast::Expression::Ident(name) => {
+                let val = self.env.get(name);
+                match val {
+                    Some(v) => return v,
+                    None => return objects::Object::Err(String::from("identifier not found"))
+                }
+            },
             _ =>  objects::Object::Null
         }
     }
@@ -44,7 +51,7 @@ impl Evaluator {
     fn eval_infix(&self, left:ast::Expression, right:Expression, oprtr:String) -> objects::Object {
         let right = self.eval_exprs(right);
         let left = self.eval_exprs(left);
-        match (right, left) {
+        match (right.clone(), left.clone()) {
             (objects::Object::Int(a), objects::Object::Int(b)) => {
                 match oprtr.as_str(){
                     "+" => objects::Object::Int(a + b),
@@ -54,9 +61,14 @@ impl Evaluator {
                     _ => objects::Object::Null
                 }
             },
+            (objects::Object::Err(_), _) => {
+                right
+            },
+            (_, objects::Object::Err(_)) => {
+                left
+            }
             _ => {
-                println!("oops mismatched types");
-                objects::Object::Null
+                objects::Object::Err(String::from(format!("mismatched types: {right} and {left}")))
             }
         }
     }
